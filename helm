@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ $1 = template ]
+then
+	helm3 secrets template ${@:2}
+else
+	helm3 $@
+fi
