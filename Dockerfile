@@ -23,3 +23,5 @@ COPY helm /usr/local/bin/helm
 USER argocd
 
 RUN helm plugin install https://github.com/futuresimple/helm-secrets
+
+ENV HELM_PLUGINS="/home/argocd/.local/share/helm/plugins/"
