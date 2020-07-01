@@ -18,7 +18,6 @@ RUN apt-get update && \
     chmod +x /usr/local/bin/sops && \
     mv /usr/local/bin/helm /usr/local/bin/helm3
 
-COPY assume.sh /usr/local/bin/assume.sh
 COPY helm /usr/local/bin/helm
 
 # Switch back to non-root user
