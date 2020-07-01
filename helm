@@ -1,6 +1,9 @@
 #!/bin/bash
 if [ $1 = template ]
 then
+#this section to assume a role using a web identity , as a result of assigning an iam role to the service account. Only needed for KMS, if you choose to configure the role as such: https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html
+#this is needed because helm secrets, or more specifically sops(?), does not support assuming roles with web identities. so we must first assume it manually
+#keep in mind you will also need to add a security context to the repo server deployment, to allow the argocd user access to the token file: https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts-technical-overview.html
 	aws sts assume-role-with-web-identity \
  	--role-arn $AWS_ROLE_ARN \
 	--role-session-name argocd \
