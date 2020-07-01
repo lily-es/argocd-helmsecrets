@@ -12,7 +12,7 @@ then
 	export AWS_SESSION_TOKEN="$(cat /tmp/irp-cred.txt | jq -r ".Credentials.SessionToken")"
 	rm /tmp/irp-cred.txt
 
-	helm3 secrets template ${@:2}
+	helm3 secrets template ${@:2} | sed '/removed.*/d'
 else
 	helm3 $@
 fi
