@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ $1 = template ]
+if [[ $1 = install  ||  $1 = template  ||  $1 = upgrade  ||  $1 = lint  ||  $1 = diff ]]
 then
 	aws sts assume-role-with-web-identity \
  	--role-arn $AWS_ROLE_ARN \
@@ -12,7 +12,7 @@ then
 	export AWS_SESSION_TOKEN="$(cat /tmp/irp-cred.txt | jq -r ".Credentials.SessionToken")"
 	rm /tmp/irp-cred.txt
 
-	helm3 secrets template ${@:2} | sed '/removed.*/d'
+	helm3 secrets $@ | sed '/removed.*/d'
 else
 	helm3 $@
 fi
