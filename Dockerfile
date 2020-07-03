@@ -17,12 +17,15 @@ RUN apt-get update && \
     curl -o /usr/local/bin/sops -L https://github.com/mozilla/sops/releases/download/3.2.0/sops-3.2.0.linux && \
     chmod +x /usr/local/bin/sops && \
     mv /usr/local/bin/helm /usr/local/bin/helm3
+    mv /usr/local/bin/helm2 /usr/local/bin/helm2-actual
 
 COPY helm /usr/local/bin/helm
+COPY helm2 /usr/local/bin/helm2
 
 # Switch back to non-root user
 USER argocd
 
 RUN helm plugin install https://github.com/futuresimple/helm-secrets
+RUN helm2 plugin install https://github.com/futuresimple/helm-secrets
 
 ENV HELM_PLUGINS="/home/argocd/.local/share/helm/plugins/"
