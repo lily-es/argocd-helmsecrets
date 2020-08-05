@@ -2387,6 +2387,8 @@ spec:
       labels:
         app.kubernetes.io/name: argocd-application-controller
     spec:
+      securityContext:
+        fsGroup: 999
       containers:
       - command:
         - argocd-application-controller
